@@ -1,50 +1,39 @@
 import express from "express";
 import bodyParser from "body-parser";
+import Ads from "./ads.js";
+import Categories from "./categories.js";
 const app = express();
 const port = 3000;
 app.use(bodyParser.json());
-// Sample data to simulate a database
-let lotteryNumbers = {
-    lotto: [3, 4, 14, 15, 21, 32, 34],
-    pogchamp: [3, 4, 14, 15, 21, 32, 34],
-    megaluck: [3, 4, 14, 15, 21, 32, 34],
-    eveningspin: [3, 4, 14, 15, 21, 32, 34],
-};
-let purchasedNumbers = {
-    lotto: null,
-    pogchamp: null,
-    megaluck: null,
-    eveningspin: null
-};
-// GET endpoint to retrieve lottery numbers
-app.get('/lottery', (req, res) => {
-    res.json(lotteryNumbers);
+let ads = Ads;
+let categories = Categories;
+// GET endpoint to error message
+app.get('/', (req, res) => {
+    res.json({ error: "Invalid endpoint. Please use /ads or /categories" });
 });
-// GET endpoint to retrieve purchased numbers and games
-app.get('/purchased', (req, res) => {
-    res.json(purchasedNumbers);
+// GET endpoint to retrieve all ads
+app.get('/ads', (req, res) => {
+    const indentedAds = JSON.stringify(ads, null, 4);
+    res.header("Content-Type", "application/json");
+    res.send(indentedAds);
 });
-// POST endpoint to add purchased numbers and games
-app.post('/purchased', (req, res) => {
-    purchasedNumbers = req.body;
-    res.status(201).json(purchasedNumbers);
+// GET endpoint to retrieve all categories
+app.get('/categories', (req, res) => {
+    const indentedCategories = JSON.stringify(categories, null, 4);
+    res.header("Content-Type", "application/json");
+    res.send(indentedCategories);
 });
-// PUT endpoint to update purchased values
-app.put('/purchased', (req, res) => {
-    purchasedNumbers = req.body;
-    res.json(purchasedNumbers);
+// PUT endpoint to update ad values
+app.put('/ads', (req, res) => {
+    ads = req.body;
+    res.json(ads);
 });
-// DELETE endpoint to clear purchased values
-app.delete('/purchased', (req, res) => {
-    purchasedNumbers = {
-        lotto: null,
-        pogchamp: null,
-        megaluck: null,
-        eveningspin: null
-    };
+// DELETE endpoint to delete last ad
+app.delete('/ads', (req, res) => {
+    ads = [];
     res.status(204).end();
 });
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is swimming on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
