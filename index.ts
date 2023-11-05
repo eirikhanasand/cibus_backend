@@ -1,7 +1,7 @@
 import express from "express"
 import bodyParser from "body-parser"
-import Ads from "./ads"
-import Categories from "./categories"
+import Ads from "./ads.js"
+import Categories from "./categories.js"
 
 const app = express()
 const port = 3000
@@ -18,12 +18,16 @@ app.get('/', (req, res) => {
 
 // GET endpoint to retrieve all ads
 app.get('/ads', (req, res) => {
-    res.json(ads)
+    const indentedAds = JSON.stringify(ads, null, 4);
+    res.header("Content-Type", "application/json");
+    res.send(indentedAds);
 })
 
 // GET endpoint to retrieve all categories
 app.get('/categories', (req, res) => {
-    res.json(categories)
+    const indentedCategories = JSON.stringify(categories, null, 4);
+    res.header("Content-Type", "application/json");
+    res.send(indentedCategories);
 })
 
 // PUT endpoint to update ad values
