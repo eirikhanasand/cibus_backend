@@ -1,51 +1,40 @@
 import express from "express"
 import bodyParser from "body-parser"
+import Ads from "./ads"
+import Categories from "./categories"
 
 const app = express()
 const port = 3000
 
 app.use(bodyParser.json())
 
-let lotteryNumbers: number[][] = [
-    [3, 4, 14, 15, 21, 32, 34],
-    [5, 7, 12, 19, 22, 24, 32],
-    [1, 2, 8, 16, 18, 23, 35],
-    [8, 11, 16, 23, 26, 29, 33],
-    [6, 9, 10, 27, 29, 31, 36],
-]
-
-let purchasedNumbers: number[][] = [[]]
+let ads: Ad[] = Ads
+let categories: Category = Categories
 
 // GET endpoint to error message
 app.get('/', (req, res) => {
-    res.json({error: "Invalid endpoint. Please use /lottery or /purchased"})
+    res.json({error: "Invalid endpoint. Please use /ads or /categories"})
 })
 
-// GET endpoint to retrieve lottery numbers
-app.get('/lottery', (req, res) => {
-    res.json(lotteryNumbers)
+// GET endpoint to retrieve all ads
+app.get('/ads', (req, res) => {
+    res.json(ads)
 })
 
-// GET endpoint to retrieve purchased numbers and games
-app.get('/purchased', (req, res) => {
-    res.json(purchasedNumbers)
+// GET endpoint to retrieve all categories
+app.get('/categories', (req, res) => {
+    res.json(categories)
 })
 
-// POST endpoint to add purchased numbers and games
-app.post('/purchased', (req, res) => {
-    purchasedNumbers = req.body
-    res.status(201).json(purchasedNumbers)
+// PUT endpoint to update ad values
+app.put('/ads', (req, res) => {
+    ads = req.body
+    res.json(ads)
 })
 
-// PUT endpoint to update purchased values
-app.put('/purchased', (req, res) => {
-    purchasedNumbers = req.body
-    res.json(purchasedNumbers)
-})
-
-// DELETE endpoint to clear purchased values
-app.delete('/purchased', (req, res) => {
-    purchasedNumbers = [[]]
+// DELETE endpoint to delete last ad
+app.delete('/ads', (req, res) => {
+    ads = []
     res.status(204).end()
 })
 
