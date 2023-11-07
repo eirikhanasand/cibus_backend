@@ -2,7 +2,7 @@ const Ad = [
     {
         id: 1,
         title_no: "Genser",
-        title_en: "Sweaters",
+        title_en: "Sweater",
         description_no: "Pent brukt genser til salgs",
         description_en: "Nicely worn sweater for sale",
         category_no: "Klær",
