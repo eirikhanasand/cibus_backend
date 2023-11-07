@@ -6,6 +6,11 @@ Cibus is a marketplace where users can buy items. This is the backend for the
 application. The backend provides GET, PUT and DELETE endpoints.Endpoints are 
 hosted at /ads and /category.
 
+### Run application
+Use `npm i && npm start` to run this application. This installs all necesarry
+dependencies, compiles the TypeScript to JavaScript, and starts the application
+on port 3000.
+
 ### Features
 - Hosts the backend necesarry for the application to run as intended
 - API hosting advertisements and categories including subcategories
